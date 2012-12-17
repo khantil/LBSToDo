@@ -1,0 +1,107 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="LBSToDo.HomeParanomaPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:LBSToDo"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False"
+    >
+
+
+    <phone:PhoneApplicationPage.Resources>
+        <!-- The template for city items -->
+        <DataTemplate x:Key="citiesItemTemplate">
+            <Grid Height="87" Width="408">
+                <TextBlock Text="{Binding Location}" FontSize="30"  Margin="0,5,170,35"/>
+                <TextBlock Text="{Binding Region}"  Foreground="GreenYellow" Margin="215,0,0,42" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding Details}" Foreground="Orange"  Margin="0,48,0,0"  />
+            </Grid>
+        </DataTemplate>
+    </phone:PhoneApplicationPage.Resources>
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <!-- LOCALIZATION NOTE:
+            To localize the displayed strings copy their values to appropriately named
+            keys in the app's neutral language resource file (AppResources.resx) then
+            replace the hard-coded text value between the attributes' quotation marks
+            with the binding clause whose path points to that string name.
+
+            For example:
+
+                Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+
+            This binding points to the template's string resource named "ApplicationTitle".
+
+            Adding supported languages in the Project Properties tab will create a
+            new resx file per language that can carry the translated values of your
+            UI strings. The binding in these examples will cause the value of the
+            attributes to be drawn from the .resx file that matches the
+            CurrentUICulture of the app at run time.
+         -->
+
+         <!--Panorama control-->
+        <phone:Panorama x:Name="locationtodosPanorama" Title="location based todos">
+            
+               
+            
+
+            <!--Panorama item one-->
+            <phone:PanoramaItem x:Name="currentLocationPanoramaItem" Header="">
+                <phone:LongListSelector x:Name="currentLocationLongListSelector" Height="564" Margin="12,0,12,0" Width="408" ItemTemplate="{StaticResource citiesItemTemplate}" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="currentLocationLongListSelectionChanged"/>
+            </phone:PanoramaItem>
+                
+                    <!--Panorama item two-->
+            <phone:PanoramaItem x:Name="menuListPanoramaItem" Header="" >
+                <!--Double line list with image placeholder and text wrapping using a floating header that scrolls with the content -->
+                <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <ListBox x:Name="menuListBox" FontSize="{StaticResource PhoneFontSizeExtraLarge}" Margin="12,0,-396,0">
+                        <TextBlock x:Name="menuAllToDosTextBlock" Text="all ToDos" Tap="menuAllToDosTextBlock_Tap" />
+                        <TextBlock x:Name="menuLocationsTextBlock" Text="locations" Tap="menuLocationsTextBlock_Tap" />
+                        <TextBlock x:Name="menuSettingsTextBlock" Text="settings" Tap="menuSettingsTextBlock_Tap" />
+                    </ListBox>
+                </Grid>
+            </phone:PanoramaItem>
+
+            <!--Panorama item three-->
+            <phone:PanoramaItem x:Name="aboutUsPanoramaItem" Header="about us" Orientation="Horizontal">
+                <!--Double wide Panorama with large image placeholders-->
+                <ScrollViewer Height="443" Width="420">
+            		<StackPanel Orientation="Vertical" Height="443" Width="420">
+            			<TextBlock x:Name="aboutUsTextBlock" Text="This is a dummt text..." TextWrapping="Wrap" FontSize="{StaticResource PhoneFontSizeLarge}" Margin="12,0,0,0" Width="420" />
+                        <StackPanel Margin="12,0,0,0" Orientation="Vertical" VerticalAlignment="Bottom">
+            				<StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            					<TextBlock x:Name="websiteLinkTextBlock" Text="website:" VerticalAlignment="Bottom" Width="80" Foreground="Green"/>
+            					<HyperlinkButton x:Name="WebsiteHyperlinkButton" VerticalAlignment="Top" Content="www.e-zest.net" Foreground="Green" TargetName="_blank" HorizontalAlignment="Left" Margin="0,0,12,0" Click="WebsiteHyperlinkButton_Click"/>
+            				</StackPanel>
+            				<StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+            					<TextBlock x:Name="supportEmailTextBlock" Text="support:" VerticalAlignment="Bottom" Width="80" Foreground="Red"/>
+            					<HyperlinkButton x:Name="SupportHyperlinkButton" VerticalAlignment="Top" Content="shrilesh.kale@e-zest.in" Foreground="Red" TargetName="_blank" HorizontalAlignment="Left" Margin="0,10,12,0" Click="SupportHyperlinkButton_Click" />
+            				</StackPanel>
+            			</StackPanel>
+            		</StackPanel>
+            	</ScrollViewer>
+            </phone:PanoramaItem>
+        </phone:Panorama>
+
+        <!--Uncomment to see an alignment grid to help ensure your controls are
+            aligned on common boundaries.  The image has a top margin of -32px to
+            account for the System Tray. Set this to 0 (or remove the margin altogether)
+            if the System Tray is hidden.
+
+            Before shipping remove this XAML and the image itself.-->
+        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+
+    </Grid>
+</phone:PhoneApplicationPage>
